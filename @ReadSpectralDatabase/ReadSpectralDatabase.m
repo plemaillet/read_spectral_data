@@ -18,7 +18,7 @@ classdef ReadSpectralDatabase < handle
     
     % CIE coordinates + rgb
     properties
-        cied65_path = [ pwd '\input\DataIlluminants\spec_cied65']
+        cied65_path
         ls 
         cmf         % Tri-stimulus functions
         XYZ
@@ -68,6 +68,12 @@ classdef ReadSpectralDatabase < handle
         % Path to BiomaxOrgan10 data
         function set_biomax_path(obj, p)
             obj.biomax_path = p;
+        end
+        
+        %set_cied65_path
+        % Path to D65 illuminant
+        function set_cied65_path(obj, p)
+            obj.cied65_path = p;
         end
         
         %% Load data
