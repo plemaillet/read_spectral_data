@@ -46,7 +46,26 @@ classdef ReadSpectralDatabase < handle
         end
         
         %% Set functions
-
+        % Initialize data
+        %set_sig_m
+        % Initialize the mean values of the transmittance
+        function set_sig_m(obj, data_m)
+            obj.sig_m = data_m;
+        end
+        
+        %set_sig_s
+        % Initialize the standard deviation values of the transmittance
+        function set_sig_s(obj, data_s)
+            obj.sig_s = data_s;
+        end
+        
+        %set_img_size
+        % Image size
+        function set_img_size(obj, s_x, s_y)
+            obj.sizex = s_x;
+            obj.sizey = s_y;
+        end
+        
         %set_cied65_path
         % Path to D65 illuminant
         function set_cied65_path(obj, p)
@@ -63,16 +82,16 @@ classdef ReadSpectralDatabase < handle
             % Mean values of the transmittance
             dataName = [path 'trans_mean_camera'];
             temp = load(dataName);
-            obj.sig_m = temp.trans_array_m;
+            obj.set_sig_m(temp.trans_array_m);
+            obj.
             
             % Image size
-            obj.sizex = temp.sizex;
-            obj.sizey = temp.sizey;
+            obj.set_img_size(temp.sizex, temp.sizey);
             
             % Standard deviation of the transmittance
             dataName = [path 'trans_std_camera'];
             temp = load(dataName);
-            obj.sig_s = temp.trans_array_s;
+            obj.set_sig_s(temp.trans_array_s);
         end
         
         %% Standard illuminant
