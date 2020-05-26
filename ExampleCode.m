@@ -16,23 +16,18 @@
 clearvars;
 close all;
 
+% Path to BiomaxOrgan 10 data
+biomax_path = pwd;
+
+% Name of the sample
+sample_name = 'Bladder_red';
+
 % Create ReadSpectralDataBase Object
-dt = ReadSpectralDatabase;
+dt = ReadSpectralDatabase(biomax_path, sample_name);
 
 % Define Standard illuminant
 dt.set_cied65_path([pwd '\input\DataIlluminants\spec_cied65'])
 dt.std_d65();
-
-% Set path to BiomaxOrgan 10 data
-biomax_path = pwd;
-dt.set_biomax_path(biomax_path);
-
-% Set sample name
-sample_name = 'Bladder_red';
-dt.set_sample_name(sample_name);
-
-% Load the spectral data
-dt.load_data;
 
 % Compute CIE coordinates
 dt.transmittance2LAB('y') % 'y' to trim the transmittance to 1, can be > 1 in the measurements due to uncertainties
@@ -41,14 +36,14 @@ dt.transmittance2LAB('y') % 'y' to trim the transmittance to 1, can be > 1 in th
 disp('Compute sRGB');
 dt.XYZ2sRGB;
 
-% Display truth image
+% REshape sRGB to tiff and display truth image
 disp('Tiff image');
 im = dt.img_tiff;
 figure;
 image(im);
 axis image;
 
-% Save the output
+% Save the outputs
 % CIE coordinates
 XYZ_array = dt.XYZ;
 save([pwd '\output\Bladder_red\CIE_Coord\XYZ_array'],'XYZ_array');

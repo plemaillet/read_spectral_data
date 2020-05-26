@@ -34,7 +34,15 @@ classdef ReadSpectralDatabase < handle
     methods
         
         %% Constructor
-        function obj = ReadSpectralDatabase
+        function obj = ReadSpectralDatabase(b_p, n)
+            % Set path to data
+            obj.set_biomax_path(b_p);
+            
+            % Set name of the sample
+            obj.set_sample_name(n);
+            
+            % Load the spectral data
+            obj.load_data;
         end
         
         %% Set functions
