@@ -25,6 +25,10 @@ sample_name = 'Bladder_red';
 % Create ReadSpectralDataBase Object
 dt = ReadSpectralDatabase(biomax_path, sample_name);
 
+% Plot tramsittance data
+% dt.show_t_spectra([500 500]);
+dt.show_t_spectra([(1:500)', repmat(250,500,1)]);
+
 % Define Standard illuminant
 d65 = LightSource([pwd '\input\DataIlluminants\spec_cied65']);
 dt.set_ls(d65.ls);

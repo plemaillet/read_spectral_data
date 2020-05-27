@@ -38,7 +38,7 @@ classdef ReadSpectralDatabase < handle
         %% Constructor
         function obj = ReadSpectralDatabase(b_p, n)
             %ReadSpectralDatabase(b_p, n) 
-            % Set biomax+path and sample name, load the data
+            % Set biomax path and sample name, load the data
             
             % Set path to data
             obj.biomax_path = b_p; 
@@ -81,6 +81,25 @@ classdef ReadSpectralDatabase < handle
             dataName = [path 'trans_std_camera'];
             temp = load(dataName);
             obj.sig_s = temp.trans_array_s;
+        end
+        
+        %% Extract transmittance spectra
+        function show_t_spectra(obj, pix_pos)
+            %show_t_spectra
+            % Plot the transmittance for a table of pixels position [x y]
+            
+            % Reshape transmittance into 3D matrix
+            t_lambda = reshape(obj.sig_m, size(obj.sig_m,1), obj.sizex, obj.sizey);
+            
+            figure;
+            % Plot transmittance of pixels as a function of wavelength
+            for i = 1:length(pix_pos(:,1))
+                plot(obj.lambda,t_lambda(:, pix_pos(i,1), pix_pos(i,2)))
+                xlim([380 780]); ylim([0 1.5])
+                xlabel('Wavelength ({\lambda})')
+                ylabel('Transmittance (A.U.)')
+                hold on
+            end
         end
 
         %% CIE coordinates and covariance matrices 
@@ -366,28 +385,22 @@ classdef ReadSpectralDatabase < handle
 
         end
         
-        function XYZ2LAB(obj)
-            %XYZ2LAB
-            % Transform CIEXYZ coordinates to CIELAB, XYZ -> LAB
-            disp('Calculate LAB...')
-            obj.XYZ2lab;
-
-            disp('Calculate CovLAB...')
-            obj.CovXYZ2Covlab;
-        end
-        
         function transmittance2LAB(obj, trim)
-             %transmittance2LAB
-             % [mean(T), stddev(T)] -> [LAB, CovLAB]
-             
+            %transmittance2LAB
+            % [mean(T), stddev(T)] -> [LAB, CovLAB]
+            
             % T -> XYZ
             obj.transmittance2XYZ(trim)
             
             % XYZ -> LAB
-            obj.XYZ2LAB;
-       end
+            disp('Calculate LAB...')
+            obj.XYZ2lab;
+            
+            disp('Calculate CovLAB...')
+            obj.CovXYZ2Covlab;
+        end
         
-        %% RBG images
+        %% sRBG coordinates
         function XYZ2sRGB(obj)
             %XYZ2sRGB
             % XYZ to RGB linear and gamma correction to get sRGB
