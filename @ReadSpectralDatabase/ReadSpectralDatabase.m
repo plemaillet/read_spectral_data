@@ -425,12 +425,5 @@ classdef ReadSpectralDatabase < handle
             obj.XYZ2sRGB;
         end
         
-        function im = img_tiff(obj)
-            %img_tiff
-            % Reshape sRGB to tiff image format (sizex * sizey * 3)
-            
-            im = reshape(obj.rgb, obj.sizey, obj.sizex,3);
-        end
-        
     end
 end

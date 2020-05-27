@@ -1,6 +1,6 @@
 # Hyperspectral Microscope (HIMS) tissue transmittance measurements reader
 
-This code was developped to read the transmittance hyperspectral data measured by DIDSR Hyperspectral Imaging MicroScope (HIMS) of a selection of 8 BiomaxOrgan10 tissue microarray slides (US Biomax, 15883 Crabbs Branch Way, MD 20855, USA):
+This code was developped to read the transmittance hyperspectral data measured by DIDSR's Hyperspectral Imaging MicroScope (HIMS) of a selection of 8 BiomaxOrgan10 tissue microarray slides (US Biomax, 15883 Crabbs Branch Way, MD 20855, USA):
 
 | Tissue Name | Position |
 | --- | :---: |

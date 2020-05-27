@@ -40,7 +40,7 @@ dt.transmittance2sRGB ('y') % 'y' to trim the transmittance to 1
 
 % Reshape sRGB to tiff and display truth image
 disp('Tiff image');
-im = dt.img_tiff;
+im = reshape(dt.rgb, dt.sizey, dt.sizex,3);
 figure;
 image(im);
 axis image;
