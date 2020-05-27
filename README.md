@@ -13,7 +13,7 @@ This code was developped to read the transmittance hyperspectral data measured b
 | Lung | J7 |
 | Uterine Cervix | B10 |
 
-It outputs the CIE1931 XYZ and CIE1976 L\*a\*b\* coordinates and their covariance matrices. It also outputs the sRGB coordinates and the tissue color truth as a tiff image.
+It outputs the CIE1931 XYZ and CIE1976 L\*a\*b\* coordinates and their covariance matrices. It also outputs the sRGB coordinates of the image.
 
 ## Disclaimer
 
