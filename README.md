@@ -1,14 +1,17 @@
 # Hyperspectral Microscope (HIMS) tissue transmittance measurements reader
 
-This code was developped to read the transmittance hyperspectral data measured by DIDSR Hyperspectral Imaging MicroScope (HIMS) of a selection of 8 BiomaxOrgan10 tissue slides 
-- Bladder
-- Brain
-- Breast
-- Colon
-- Kidney 
-- Liver
-- Lung
-- Uterine Cervix
+This code was developped to read the transmittance hyperspectral data measured by DIDSR Hyperspectral Imaging MicroScope (HIMS) of a selection of 8 BiomaxOrgan10 tissue microarray slides (US Biomax, 15883 Crabbs Branch Way, MD 20855, USA):
+
+| Tissue Name | Position |
+| --- | --- |
+| Bladder | M13 |
+| Brain | H10 |
+| Breast | A1 |
+| Colon | H6 |
+| Kidney | H7 |
+| Liver | H9 |
+| Lung | J7 |
+| Uterine Cervix | B10 |
 
 ## Disclaimer
 
