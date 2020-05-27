@@ -1,4 +1,4 @@
-# TITLE
+# Hyperspectral Microscope (HIMS) tissue transmittance measurements reader
 
 This code was developped to read the transmittance hyperspectral data measured by DIDSR Hyperspectral Imaging MicroScope (HIMS) of a selection of 8 BiomaxOrgan10 tissue slides 
 - Bladder
