@@ -26,7 +26,7 @@ Example Bladder (image reduced in size to 557 x 512 pixels
 Simulation input files, and auxiliary files, have been added in the [example_simulations folder](https://github.com/DIDSR/VICTRE_MCGPU/tree/master/example_simulations) to allow the replication of two of the simulations of the VICTRE project.
 A breast phantom with scattered glandularity and a heterogreously dense phantom created with C. Graff model are provided (these phantoms were not part of the original VICTRE pivotal study, and have a single large mass embedded inside). The material files (generated from PENELOPE 2006 material files) and energy spectra used in the simulations are included.
 
-<img src="code_read_spectral_data/output/Bladder_red/RGB/truth.tif" width="557px"/>
+<img src="output/Bladder_red/RGB/truth.tif" width="557px"/>
 
 ### (e) Some list
 List:
