@@ -26,17 +26,19 @@ sample_name = 'Bladder_red';
 dt = ReadSpectralDatabase(biomax_path, sample_name);
 
 % Define Standard illuminant
-dt.set_cied65_path([pwd '\input\DataIlluminants\spec_cied65'])
-dt.std_d65();
+d65 = LightSource([pwd '\input\DataIlluminants\spec_cied65']);
+dt.set_ls(d65.ls);
 
-% Compute CIE coordinates
-dt.transmittance2LAB('y') % 'y' to trim the transmittance to 1, can be > 1 in the measurements due to uncertainties
+% Compute CIEXYZ coordinates
+dt.transmittance2XYZ('y') % 'y' to trim the transmittance to 1, can be > 1 in the measurements due to uncertainties
+
+% Compute CIELAB coordinates
+dt.transmittance2LAB('y') % 'y' to trim the transmittance to 1
 
 % Compute sRGB values 
-disp('Compute sRGB');
-dt.XYZ2sRGB;
+dt.transmittance2sRGB ('y') % 'y' to trim the transmittance to 1
 
-% REshape sRGB to tiff and display truth image
+% Reshape sRGB to tiff and display truth image
 disp('Tiff image');
 im = dt.img_tiff;
 figure;

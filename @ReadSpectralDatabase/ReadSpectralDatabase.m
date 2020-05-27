@@ -1,33 +1,35 @@
 classdef ReadSpectralDatabase < handle
-    % Image class for hyperspectral imaging microscope measurements
+    %ReadSpectralDatabase Image class for hyperspectral imaging microscope measurements
+    % Load the transmittance data (mean value and standard deviation) and
+    % computes the CIEXYZ, CIELAB coordinates and their covariance
+    % matrices, computes the sRGB coordinates and tiff image
     
     %% Properties
     % Sample
     properties
-        biomax_path
-        sample
+        biomax_path             % Path to BiomaxOrgan10 data
+        sample                  % Name of BiomaxOrgan10 the sample
     end
     % Images properties
     properties
-        sizex 
-        sizey
-        lambda = 380:10:780
-        sig_m
-        sig_s
+        sizex                   % Number of columns in the image
+        sizey                   % Number of rows in the imag
+        lambda = 380:10:780     % 380 nm to 780 nm in steps of 10 nm
+        sig_m                   % Mean values of the transmittance
+        sig_s                   % Standard deviation values of the transmittance
     end
     
     % CIE coordinates + rgb
     properties
-        cied65_path
-        ls 
-        cmf         % Tri-stimulus functions
-        XYZ
-        XYZ0
-        CovXYZ
-        LAB
-        CovLAB
-        Y0 = 100
-        rgb
+        ls                      % Illuminant spectrum
+        cmf                     % Tri-stimulus functions
+        XYZ                     % CIE1931 XYZ coordinates
+        XYZ0                    % CIE1931 XYZ coordinates for the white point (T = 100%)
+        CovXYZ                  % Covariance matrices on the CIE1931 XYZ coordinates
+        LAB                     % CIE1976 Lab coordinates
+        CovLAB                  % Covariance matrices on the CIE1976 Lab coordinates
+        Y0 = 100                % Normalization factor
+        rgb                     % sRGB coordianates
     end
         
     %% Methods
@@ -35,6 +37,9 @@ classdef ReadSpectralDatabase < handle
         
         %% Constructor
         function obj = ReadSpectralDatabase(b_p, n)
+            %ReadSpectralDatabase(b_p, n) 
+            % Set biomax+path and sample name, load the data
+            
             % Set path to data
             obj.biomax_path = b_p; 
             
@@ -46,17 +51,20 @@ classdef ReadSpectralDatabase < handle
         end
         
         %% Set functions
-
-        %set_cied65_path
-        % Path to D65 illuminant
-        function set_cied65_path(obj, p)
-            obj.cied65_path = p;
+        function set_ls(obj, ls)
+            %set_ls
+            % Pass the standard illuminant to the class object
+            obj.ls = ls;
         end
         
         %% Load data
-        %load_data
-        % Loads the transmittance values from the data files
         function obj = load_data(obj)
+            %load_data
+            % Loads the transmittance values from the data files
+            % Set the transmittance mean values (sig_m), the transmittance
+            % standard deviation values (sig_s)m and the image size (sizex,
+            % sizey). pass these to the class object
+            
             % Load files sample
             path = [obj.biomax_path '\input\' obj.sample '\Transmittance\'];
             
@@ -74,19 +82,12 @@ classdef ReadSpectralDatabase < handle
             temp = load(dataName);
             obj.sig_s = temp.trans_array_s;
         end
-        
-        %% Standard illuminant
-        %std_d65
-        % Defines the standard illuminant to CIE D65
-        function std_d65(obj)
-            load (obj.cied65_path, 'spec');
-            obj.ls = spec(1:10:401,2);
-        end
-        
+
         %% CIE coordinates and covariance matrices 
-        %col_match_f
-        % Color matching functions
         function col_match_f(obj)
+            %col_match_f
+            % Color matching functions xbar, ybar, zbar from 380 nm to 780
+            % nm in steps of 10 nm
             obj.cmf = [
                 380.0 0.001368 0.000039 0.006450;
                 390.0 0.004243 0.000120 0.020050;
@@ -132,9 +133,10 @@ classdef ReadSpectralDatabase < handle
                 ];
         end
         
-        %spd2XYZ
-        % Transmittance measurements to CIEXYZ tri-stimulus values, T -> CIEXYZ 
         function spd2XYZ(obj, ls)
+            %spd2XYZ
+            % Transmittance measurements to CIEXYZ tri-stimulus values, T -> CIEXYZ
+            
             % Color matching functions
             obj.col_match_f;
             
@@ -154,11 +156,12 @@ classdef ReadSpectralDatabase < handle
             obj.XYZ = [X' Y' Z'];
         end
                 
-        %stddev_spd2CovXYZ
-        % Standard deviation on the transmittance measurements to covariance matrix on XYZ,stddev(T) -> CovXYZ
         function stddev_spd2CovXYZ(obj, ls)
+            %stddev_spd2CovXYZ
+            % Standard deviation on the transmittance measurements to covariance matrix on XYZ, stddev(T) -> CovXYZ
+            
             % XYZ Uncertainties
-            input_n = size(obj.sig_m,2);
+            input_n = size(obj.sig_m,2); % CHANGE TO sig_s IT'S JUST SIZE!!!
             x_bar = repmat(obj.cmf(: ,2),1,input_n);
             y_bar = repmat(obj.cmf(: ,3),1,input_n);
             z_bar = repmat(obj.cmf(: ,4),1,input_n);
@@ -197,9 +200,9 @@ classdef ReadSpectralDatabase < handle
             end
         end
         
-        %XYZ_white
-        % XYZ coordinates of reference white
         function XYZ_white(obj)
+            %XYZ_white
+            % XYZ coordinates of reference white
             
             % Tristimulus spectral functions
             x_bar = obj.cmf(: ,2);
@@ -217,9 +220,10 @@ classdef ReadSpectralDatabase < handle
                         
         end
         
-        %XYZ2lab
-        % CIEYXZ to CIELAB, XYZ -> LAB
         function XYZ2lab(obj)
+            %XYZ2lab
+            % CIEXYZ to CIELAB, XYZ -> LAB
+            
             % XYZ is k-by-3
             % XYZ_white is 1-by-3
             k = size(obj.XYZ,1);
@@ -250,8 +254,10 @@ classdef ReadSpectralDatabase < handle
             
         end
        
-        % Covariance on YXZ to covariance on LAB, CovXYZ -> CovLAB
         function CovXYZ2Covlab(obj)
+            %CovXYZ2Covlab
+            % Covariance on YXZ to covariance on LAB, CovXYZ -> CovLAB
+            
             % XYZ is k-by-3
             % XYZ_white is 1-by-3
             k = size(obj.XYZ,1);
@@ -328,9 +334,9 @@ classdef ReadSpectralDatabase < handle
             end
         end
         
-        %transmittance2LAB
-        % T -> LAB including Covariance computation
-        function transmittance2LAB(obj, trim)
+        function transmittance2XYZ(obj, trim)
+            %transmittance2XYZ
+            % [mean(T), stddev(T)] -> [XYZ, CovXYZ]
             
             % Set the max input T to 1 and proportionaly scales the uncertainty (multiplicative noise assumption)
             switch trim
@@ -351,50 +357,78 @@ classdef ReadSpectralDatabase < handle
             end
             
             ls_array = repmat(obj.ls, 1, size(obj.sig_m, 2));
-
-            disp('Combining reflectance and illuminant into LAB...')
             
-            disp('  calculate XYZ...')
+            disp('Calculate XYZ...')
             obj.spd2XYZ(ls_array);
             
-            disp('  calculate CovXYZ...')
+            disp('Calculate CovXYZ...')
             obj.stddev_spd2CovXYZ(ls_array);
-            
-            disp('  calculate LAB...')
+
+        end
+        
+        function XYZ2LAB(obj)
+            %XYZ2LAB
+            % Transform CIEXYZ coordinates to CIELAB, XYZ -> LAB
+            disp('Calculate LAB...')
             obj.XYZ2lab;
 
-            disp('  calculate CovLAB...')
+            disp('Calculate CovLAB...')
             obj.CovXYZ2Covlab;
         end
         
+        function transmittance2LAB(obj, trim)
+             %transmittance2LAB
+             % [mean(T), stddev(T)] -> [LAB, CovLAB]
+             
+            % T -> XYZ
+            obj.transmittance2XYZ(trim)
+            
+            % XYZ -> LAB
+            obj.XYZ2LAB;
+       end
+        
         %% RBG images
-        %XYZ2sRGB
-        % XYZ to RGB linear and gamma correction to get sRGB
         function XYZ2sRGB(obj)
-            % constants
+            %XYZ2sRGB
+            % XYZ to RGB linear and gamma correction to get sRGB
+            
+            % Constants
             m=[3.2410 -1.5374 -0.4986; -0.9692 1.8760 0.0416; 0.0556 -0.2040 1.0570];
             a=0.055;
             
-            % linearize
+            % Linearize
             rgb_out = m*obj.XYZ'/obj.Y0;
             
-            % conditional mask
+            % Conditional mask
             rgb_lessorequal = (rgb_out <= 0.0031308);
             
-            % conditional assignment
+            % Conditional assignment
             rgb_out(rgb_lessorequal) = rgb_out(rgb_lessorequal) * 12.92;
             rgb_out(~rgb_lessorequal) = (1+a)*(rgb_out(~rgb_lessorequal).^(1/2.4)) - a;
             
-            % clip
+            % Clip
             rgb_out = double(uint8(rgb_out*255))/255;
             
-            % comply with the old form
+            % Comply with the old form
             obj.rgb = rgb_out';
         end
         
-        %img_tiff
-        % Reshape sRGB to tiff image
+        function transmittance2sRGB(obj, trim)
+            %transmittance2sRGB
+            % T -> sRBG with an intermediate step computating [XYZ, CovXYZ]
+            
+            % T -> XYZ
+            obj.transmittance2XYZ(trim)
+            
+            % Compute sRGB values
+            disp('Compute sRGB');
+            obj.XYZ2sRGB;
+        end
+        
         function im = img_tiff(obj)
+            %img_tiff
+            % Reshape sRGB to tiff image format (sizex * sizey * 3)
+            
             im = reshape(obj.rgb, obj.sizey, obj.sizex,3);
         end
         
