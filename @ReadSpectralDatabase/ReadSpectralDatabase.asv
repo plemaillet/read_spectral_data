@@ -38,7 +38,7 @@ classdef ReadSpectralDatabase < handle
         %% Constructor
         function obj = ReadSpectralDatabase(b_p, n)
             %ReadSpectralDatabase(b_p, n) 
-            % Set biomax+path and sample name, load the data
+            % Set biomax path and sample name, load the data
             
             % Set path to data
             obj.biomax_path = b_p; 
@@ -83,24 +83,6 @@ classdef ReadSpectralDatabase < handle
             obj.sig_s = temp.trans_array_s;
         end
         
-        %% Extract transmittance spectra
-        function show_t_spectra(obj, pix_pos)
-            %show_t_spectra
-            % Plot the transmittnce for a table of pixels position [pos_x
-            
-            % Reshape transmittance into 3D matrix
-            t_lambda = reshape(obj.sig_m, size(obj.sig_m,1), obj.sizex, obj.sizey);
-            
-            figure;
-            % Plot transmittance of pixels as a function of wavelength
-            for i = 1:length(pix_pos(:,1))
-                plot(obj.lambda,t_lambda(:, pix_pos(i,1), pix_pos(i,2)))
-                xlim([380 780]); ylim([0 1.5])
-                xlabel('Wavelength ({\lambda})')
-                ylabel('Transmittance (A.U.)')
-                hold on
-            end
-        end
 
         %% CIE coordinates and covariance matrices 
         function col_match_f(obj)
@@ -353,6 +335,16 @@ classdef ReadSpectralDatabase < handle
             end
         end
         
+        function xy = XYZ2xy(obj)
+            %XYZ2xy
+            % Converts the CIEXZY coordinates into the chromaticity values
+            % Outputs the chromaticity as a [sizex * sizey, 2] table
+            
+            xy = zeros(size(obj.sig_m, 2) , 2);
+            xy(:, 1) = obj.XYZ(:, 1)./sum(obj.XYZ, 2);
+            xy(:, 2) = obj.XYZ(:, 2)./sum(obj.XYZ, 2);
+        end
+        
         function transmittance2XYZ(obj, trim)
             %transmittance2XYZ
             % [mean(T), stddev(T)] -> [XYZ, CovXYZ]
@@ -438,5 +430,141 @@ classdef ReadSpectralDatabase < handle
             obj.XYZ2sRGB;
         end
         
+        %% Display results in a table
+        function displ_res(obj, pix_pos)
+            %displ_res
+            % Display results on commad window for pixel position = [x, y]
+            
+            % Convert pixel position of row position
+            r_pos = obj.pix_pos2r_pos(pix_pos);
+            
+            % Call chromaticity computation function
+            xy = obj.XYZ2xy;
+            
+            % Data
+            dt = [pix_pos obj.XYZ(r_pos, :) obj.XYZ(r_pos, 2) xy(r_pos, :) obj.LAB(r_pos, :)];
+            
+            % Header1
+            h1 = {'X0' 'Y0' 'Z0'};
+            h2 = {'PosX' 'PosY' 'X' 'Y' 'Z' 'Y' 'x' 'y' 'L' 'a' 'b'};
+
+            % Display tabulated data
+            fprintf(1, '\t%s\t\t%s\t\t%s\n', h1{:});
+            fprintf(1, '\t%s\t\t%s\t\t%s\n', obj.XYZ0);
+            fprintf(1, '%s\t%s\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\n', h2{:});
+            fprintf(1, '%d\t\t%d\t\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\n', dt');
+
+        end
+        
+        %% Graphics
+        function show_t_spectra(obj, pix_pos)
+            %show_t_spectra
+            % Plot the transmittance for a table of pixels position [x y]
+            % The color of the plots is defined by the rgb coordinates of
+            % the pixels if the rbg matrix is not empty
+            
+            % Convert pixel position of row position
+            r_pos = obj.pix_pos2r_pos(pix_pos);
+
+            figure;
+            
+            % Color
+            if ~isempty(obj.rgb)
+                c = obj.rgb;
+                set(gca, 'ColorOrder', c, 'NextPlot', 'replacechildren');
+            end
+            
+            % Plot transmittance of pixels as a function of wavelength
+            for i = 1:length(r_pos)
+                plot(obj.lambda, obj.sig_m(:, r_pos(i))');
+                xlim([380 780]); ylim([0 1.5])
+                xlabel('Wavelength ({\lambda})')
+                ylabel('Transmittance (A.U.)')
+                hold on
+            end
+            
+        end
+
+        function scatter3(obj, coord)
+            %scatter3
+            % scatter3 plot of the LAB, XYZ or sRGB coordinates
+            % The color of the points is defined by the rgb coordinates of
+            % the pixels if the rbg matrix is not empty
+              
+            % Scatter 3D plot
+            switch coord
+                case 'LAB'
+                    dt = obj.LAB;
+                    % Columns swap to display data properly on 3d scatter
+                    % plot
+                    dt(:, [1 3]) = dt(:, [3 1]);
+                    xl = 'b*'; yl = 'a*'; zl = 'L*';
+                    
+                    % Text for data cursor
+                    c_txt = {zl yl xl};
+                    c_order = [3 2 1];
+                case 'XYZ'
+                    dt = obj.XYZ;
+                    % Columns swap to display data properly on 3d scatter
+                    % plot 
+                    dt(:, [1 2]) = dt(:, [2 1]);
+                    xl = 'Y'; yl = 'X'; zl = 'Z';
+                    
+                    % Text for data cursor
+                    c_txt = {yl xl zl};
+                    c_order = [2 1 3];
+                case 'RGB'
+                    dt = obj.rgb;
+                    % Columns swap to display data properly on 3d scatter
+                    % plot
+                    dt(:, [1 2]) = dt(:, [2 1]);
+                    xl = 'G'; yl = 'R'; zl = 'B';
+                    
+                    % Text for data cursor
+                    c_txt = {yl xl zl};
+                    c_order = [2 1 3];
+                otherwise
+                    disp('scatter3 options: LAB, XYZ or RGB');
+                    return;
+            end
+            
+            % Color of points
+            if ~isempty(obj.rgb)
+                c = obj.rgb;
+            else
+                c = [0 0 0];
+            end
+            
+            % Plot
+            fig = figure('DeleteFcn', 'datacursormode');
+            scatter3(dt(:, 2), dt(:, 3), dt(:, 1), [], c, '.');
+            xlabel(xl); ylabel(yl); zlabel(zl);
+            dcm_obj = datacursormode(fig);
+            set(dcm_obj, 'UpdateFcn',{@obj.dt_cursor_updatefcn, c_txt, c_order}); % To customize data output of data cursor
+            
+        end
+        
+    end
+    
+    methods (Access = private)
+        
+        function r_pos = pix_pos2r_pos(obj, pix_pos)
+            %pix_pos2r_pos
+            % Convert the pixel position [x, y] into the row position in
+            % the data tables (number of rows = sizex * sizey)
+            
+            r_pos = (pix_pos(:, 1)-1).*obj.sizey + pix_pos(:, 2);
+        end
+        
+        function txt = dt_cursor_updatefcn(obj, ~,event_obj, c_txt, c_order)
+            %dt_cursor_updatefcn
+            % Customizes text of data tips
+            
+            pos = get(event_obj,'Position');
+            pos([1 2 3]) = pos(c_order);
+            txt = {[c_txt{1} ' ',num2str(pos(1))],...
+                [c_txt{2} ' ',num2str(pos(2))],...
+                [c_txt{3} ' ',num2str(pos(3))]};
+        end
     end
 end

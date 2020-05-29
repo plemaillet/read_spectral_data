@@ -444,11 +444,14 @@ classdef ReadSpectralDatabase < handle
             % Data
             dt = [pix_pos obj.XYZ(r_pos, :) obj.XYZ(r_pos, 2) xy(r_pos, :) obj.LAB(r_pos, :)];
             
-            % Header
-            h = {'PosX' 'PosY' 'X' 'Y' 'Z' 'Y' 'x' 'y' 'L' 'a' 'b'};
+            % Header1
+            h1 = {'X0' 'Y0' 'Z0'};
+            h2 = {'PosX' 'PosY' 'X' 'Y' 'Z' 'Y' 'x' 'y' 'L' 'a' 'b'};
 
             % Display tabulated data
-            fprintf(1, '%s\t%s\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\n', h{:});
+            fprintf(1, '\n%s\t\t%s\t\t%s\n', h1{:});
+            fprintf(1, '%3.2f\t%3.2f\t%3.2f\n\n', obj.XYZ0);
+            fprintf(1, '%s\t%s\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\n', h2{:});
             fprintf(1, '%d\t\t%d\t\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\t%3.2f\n', dt');
 
         end
