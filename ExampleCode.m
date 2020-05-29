@@ -16,6 +16,7 @@
 clearvars;
 close all;
 
+%% Load data
 % Path to BiomaxOrgan 10 data
 biomax_path = pwd;
 
@@ -25,31 +26,45 @@ sample_name = 'Bladder_red';
 % Create ReadSpectralDataBase Object
 dt = ReadSpectralDatabase(biomax_path, sample_name);
 
-% Plot tramsittance data
-% dt.show_t_spectra([500 500]);
-dt.show_t_spectra([(1:500)', repmat(250,500,1)]);
-
-% Define Standard illuminant
+%% Define Standard illuminant
 d65 = LightSource([pwd '\input\DataIlluminants\spec_cied65']);
 dt.set_ls(d65.ls);
 
-% Compute CIEXYZ coordinates
+%% Compute CIEXYZ coordinates
 dt.transmittance2XYZ('y') % 'y' to trim the transmittance to 1, can be > 1 in the measurements due to uncertainties
 
-% Compute CIELAB coordinates
+%% Compute CIELAB coordinates
 dt.transmittance2LAB('y') % 'y' to trim the transmittance to 1
 
-% Compute sRGB values 
+%% Compute sRGB values 
 dt.transmittance2sRGB ('y') % 'y' to trim the transmittance to 1
 
-% Reshape sRGB to tiff and display truth image
+%% Display results
+pix_pos = [500 500; 400 400];
+dt.displ_res(pix_pos);
+
+%% Reshape sRGB to tiff and display truth image
 disp('Tiff image');
 im = reshape(dt.rgb, dt.sizey, dt.sizex,3);
 figure;
 image(im);
 axis image;
 
-% Save the outputs
+%% Plots
+% Transittance data
+pix_pos = [500 500; 400 400];
+dt.show_t_spectra(pix_pos );
+
+% LAB
+dt.scatter3('LAB');
+
+% XYZ
+dt.scatter3('XYZ');
+
+% sRGB
+dt.scatter3('RGB');
+
+%% Save the outputs
 % CIE coordinates
 XYZ_array = dt.XYZ;
 save([pwd '\output\Bladder_red\CIE_Coord\XYZ_array'],'XYZ_array');
