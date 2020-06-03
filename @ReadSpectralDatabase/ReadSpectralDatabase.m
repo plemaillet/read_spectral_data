@@ -457,26 +457,32 @@ classdef ReadSpectralDatabase < handle
         end
         
         %% Graphics
-        function show_t_spectra(obj, pix_pos)
+        function show_t_spectra(obj, pos)
             %show_t_spectra
-            % Plot the transmittance for a table of pixels position [x y]
+            % Plot the transmittance for a table of positions:
+            % - pixels positions [x y]
+            % - list positions x
             % The color of the plots is defined by the rgb coordinates of
             % the pixels if the rbg matrix is not empty
             
-            % Convert pixel position of row position
-            r_pos = obj.pix_pos2r_pos(pix_pos);
-
+            % Convert pixel position of row position if needed
+            if size(pos, 2) == 2
+                r_pos = obj.pix_pos2r_pos(pos);
+            elseif size(pos, 2) == 1
+                r_pos = pos;
+            end
+            
+            % Graphics
             figure;
             
             % Color
             if ~isempty(obj.rgb)
                 c = obj.rgb;
-                set(gca, 'ColorOrder', c, 'NextPlot', 'replacechildren');
             end
             
             % Plot transmittance of pixels as a function of wavelength
             for i = 1:length(r_pos)
-                plot(obj.lambda, obj.sig_m(:, r_pos(i))');
+                plot(obj.lambda, obj.sig_m(:, r_pos(i))', 'Color', c(r_pos(i), :));
                 xlim([380 780]); ylim([0 1.5])
                 xlabel('Wavelength ({\lambda})')
                 ylabel('Transmittance (A.U.)')
@@ -484,49 +490,12 @@ classdef ReadSpectralDatabase < handle
             end
             
         end
-
+        
         function scatter3(obj, coord)
             %scatter3
             % scatter3 plot of the LAB, XYZ or sRGB coordinates
             % The color of the points is defined by the rgb coordinates of
             % the pixels if the rbg matrix is not empty
-              
-            % Scatter 3D plot
-            switch coord
-                case 'LAB'
-                    dt = obj.LAB;
-                    % Columns swap to display data properly on 3d scatter
-                    % plot
-                    dt(:, [1 3]) = dt(:, [3 1]);
-                    xl = 'b*'; yl = 'a*'; zl = 'L*';
-                    
-                    % Text for data cursor
-                    c_txt = {zl yl xl};
-                    c_order = [3 2 1];
-                case 'XYZ'
-                    dt = obj.XYZ;
-                    % Columns swap to display data properly on 3d scatter
-                    % plot 
-                    dt(:, [1 2]) = dt(:, [2 1]);
-                    xl = 'Y'; yl = 'X'; zl = 'Z';
-                    
-                    % Text for data cursor
-                    c_txt = {yl xl zl};
-                    c_order = [2 1 3];
-                case 'RGB'
-                    dt = obj.rgb;
-                    % Columns swap to display data properly on 3d scatter
-                    % plot
-                    dt(:, [1 2]) = dt(:, [2 1]);
-                    xl = 'G'; yl = 'R'; zl = 'B';
-                    
-                    % Text for data cursor
-                    c_txt = {yl xl zl};
-                    c_order = [2 1 3];
-                otherwise
-                    disp('scatter3 options: LAB, XYZ or RGB');
-                    return;
-            end
             
             % Color of points
             if ~isempty(obj.rgb)
@@ -535,15 +504,118 @@ classdef ReadSpectralDatabase < handle
                 c = [0 0 0];
             end
             
-            % Plot
-            fig = figure('DeleteFcn', 'datacursormode');
-            scatter3(dt(:, 2), dt(:, 3), dt(:, 1), [], c, '.');
-            xlabel(xl); ylabel(yl); zlabel(zl);
-            dcm_obj = datacursormode(fig);
-            set(dcm_obj, 'UpdateFcn',{@obj.dt_cursor_updatefcn, c_txt, c_order}); % To customize data output of data cursor
+            % Scatter 3D plot
+            switch coord
+                case 'LAB'
+                    dt = obj.LAB;
+                    % Columns swap to display L* on z axis, b* on x axis
+                    % plot
+                    dt(:, [1 3]) = dt(:, [3 1]);
+                    fig = scatter3_LAB(dt(:, 1), dt(:, 2), dt(:, 3), [], c);
+                case 'XYZ'
+                    dt = obj.XYZ;
+                    fig = scatter3_XYZ(dt(:, 1), dt(:, 2), dt(:, 3), [], c);
+                case 'RGB'
+                    dt = obj.rgb;
+                    fig = scatter3_RBG(dt(:, 1), dt(:, 2), dt(:, 3), [], c);
+               otherwise
+                    disp('scatter3 options: LAB, XYZ or RGB');
+                    return;
+            end
+             
+            function fig = scatter3_LAB(X1,Y1,Z1,S1,C1)
+                % Create figure
+                fig = figure;
+                
+                % Create axes
+                axes1 = axes('Parent',fig);
+                hold(axes1,'on');
+                
+                % Create scatter3
+                scatter3(X1,Y1,Z1,S1,C1,'Marker','.');
+                
+                % Create zlabel
+                zlabel('L*');
+                
+                % Create ylabel
+                ylabel('a*');
+                
+                % Create xlabel
+                xlabel('b*');
+                
+                view(axes1,[-45 22.75]);
+                grid(axes1,'on');
+                axis(axes1,'ij');
+                
+                % Data cursor
+                c_txt = {'b*' 'a*' 'L*'};
+                dcm_obj = datacursormode(fig);
+                set(dcm_obj, 'UpdateFcn',{@obj.dt_cursor_updatefcn, c_txt}); % To customize data output of data cursor
+            end
             
-        end
-        
+            function fig = scatter3_XYZ(X1,Y1,Z1,S1,C1)
+                % Create figure
+                fig = figure;
+                
+                % Create axes
+                axes1 = axes('Parent',fig);
+                hold(axes1,'on');
+                
+                % Create scatter3
+                scatter3(X1,Y1,Z1,S1,C1,'Marker','.');
+                
+                % Create zlabel
+                zlabel('Z');
+                
+                % Create ylabel
+                ylabel('Y');
+                
+                % Create xlabel
+                xlabel('X');
+                
+                view(axes1,[46.8 31.2]);
+                grid(axes1,'on');
+                
+                % Data cursor
+                c_txt = {'X' 'Y' 'Z'};
+                dcm_obj = datacursormode(fig);
+                set(dcm_obj, 'UpdateFcn',{@obj.dt_cursor_updatefcn, c_txt}); % To customize data output of data cursor
+            end
+            
+            function fig = scatter3_RBG(X1,Y1,Z1,S1,C1)
+                % Create figure
+                fig = figure;
+%                 fig = figure('DeleteFcn', 'datacursormode');
+                
+                % Create axes
+                axes1 = axes('Parent',fig);
+                hold(axes1,'on');
+                
+                % Create scatter3
+                scatter3(X1,Y1,Z1,S1,C1,'Marker','.');
+                
+                % Create zlabel
+                zlabel('B');
+                
+                % Create ylabel
+                ylabel('G');
+                
+                % Create xlabel
+                xlabel('R');
+                
+                view(axes1,[135 22.75]);
+                grid(axes1,'on');
+                
+                % Set the remaining axes properties
+                set(axes1,'XDir','reverse','YDir','reverse');
+                
+                % Data cursor
+                c_txt = {'R' 'G' 'B'};
+                dcm_obj = datacursormode(fig);
+                set(dcm_obj, 'UpdateFcn',{@obj.dt_cursor_updatefcn, c_txt}); % To customize data output of data cursor
+            end
+            
+          end
     end
     
     methods (Access = private)
@@ -556,15 +628,16 @@ classdef ReadSpectralDatabase < handle
             r_pos = (pix_pos(:, 1)-1).*obj.sizey + pix_pos(:, 2);
         end
         
-        function txt = dt_cursor_updatefcn(obj, ~,event_obj, c_txt, c_order)
+        function txt = dt_cursor_updatefcn(obj, ~,event_obj, c_txt) %, c_order)
             %dt_cursor_updatefcn
             % Customizes text of data tips
             
             pos = get(event_obj,'Position');
-            pos([1 2 3]) = pos(c_order);
+            I = get(event_obj, 'DataIndex');
             txt = {[c_txt{1} ' ',num2str(pos(1))],...
                 [c_txt{2} ' ',num2str(pos(2))],...
-                [c_txt{3} ' ',num2str(pos(3))]};
+                [c_txt{3} ' ',num2str(pos(3))],...
+                ['Index: ',num2str(I)]};
         end
     end
 end

@@ -67,15 +67,15 @@ dt.scatter3('RGB');
 %% Save the outputs
 % CIE coordinates
 XYZ_array = dt.XYZ;
-save([pwd '\output\Bladder_red\CIE_Coord\XYZ_array'],'XYZ_array');
+save([pwd '\output\' sample_name '\CIE_Coord\XYZ_array'],'XYZ_array');
 CovXYZ_array = dt.CovXYZ;
-save([pwd '\output\Bladder_red\CIE_Coord\CovXYZ_array'],'CovXYZ_array');
+save([pwd '\output\' sample_name '\CIE_Coord\CovXYZ_array'],'CovXYZ_array');
 LAB_array = dt.LAB;
-save([pwd '\output\Bladder_red\CIE_Coord\LAB_array'],'LAB_array');
+save([pwd '\output\' sample_name '\CIE_Coord\LAB_array'],'LAB_array');
 CovLAB_array = dt.CovLAB;
-save([pwd '\output\Bladder_red\CIE_Coord\CovLAB_array'],'CovLAB_array');
+save([pwd '\output\' sample_name '\CIE_Coord\CovLAB_array'],'CovLAB_array');
 
 % sRGB and Tiff
 rgb = dt.rgb;
-save([pwd '\output\Bladder_red\RGB\rgb'],'rgb');
-imwrite(im ,[pwd '\output\Bladder_red\RGB\truth.tif']);
+save([pwd '\output\' sample_name '\RGB\rgb'],'rgb');
+imwrite(im ,[pwd '\output\' sample_name '\RGB\truth.tif']);
