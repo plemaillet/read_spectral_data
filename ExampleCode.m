@@ -21,7 +21,7 @@ close all;
 biomax_path = pwd;
 
 % Name of the sample
-sample_name = 'Bladder_red';
+sample_name = 'UterineCervix_red';
 
 % Create ReadSpectralDataBase Object
 dt = ReadSpectralDatabase(biomax_path, sample_name);
@@ -53,7 +53,7 @@ axis image;
 %% Plots
 % Transittance data
 pix_pos = [500 500; 400 400];
-dt.show_t_spectra(pix_pos );
+dt.show_t_spectra(pix_pos);
 
 % LAB
 dt.scatter3('LAB');

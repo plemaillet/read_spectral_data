@@ -162,7 +162,7 @@ classdef ReadSpectralDatabase < handle
             % Standard deviation on the transmittance measurements to covariance matrix on XYZ, stddev(T) -> CovXYZ
             
             % XYZ Uncertainties
-            input_n = size(obj.sig_m,2); % CHANGE TO sig_s IT'S JUST SIZE!!!
+            input_n = size(obj.sig_s, 2);
             x_bar = repmat(obj.cmf(: ,2),1,input_n);
             y_bar = repmat(obj.cmf(: ,3),1,input_n);
             z_bar = repmat(obj.cmf(: ,4),1,input_n);
