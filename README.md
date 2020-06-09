@@ -27,12 +27,6 @@ Example Bladder (image reduced in size to 557 x 512 pixels
   <img width="557" height="512" src="Bladder_red.png">
 </p>
 
-### (e) Some list
-List:
-
-  * Item 1.
-  * Item 2.
-
 ### ExampleCode.m
 The uterine tissue was selected for clear stratification of the squamous mucosa and stroma. The light pink region in S points to the stroma of the uterine sample. T and U point to different regions of the squamous epithelium; the former being the midzone, or stratum spongiosum, and the latter being the basal cell layer.
 
