@@ -40,20 +40,22 @@ dt.transmittance2LAB('y') % 'y' to trim the transmittance to 1
 dt.transmittance2sRGB ('y') % 'y' to trim the transmittance to 1
 
 %% Display results
-pix_pos = [500 500; 400 400];
+pix_pos = [500 500; 400 400; 300 300];
+pix_label = ['S'; 'T'; 'U'];
 dt.displ_res(pix_pos);
 
 %% Reshape sRGB to tiff and display truth image
-disp('Tiff image');
+disp('Showing sRGB image');
 im = reshape(dt.rgb, dt.sizey, dt.sizex,3);
 figure;
 image(im);
 axis image;
+axis off
 
 %% Plots
 % Transittance data
-pix_pos = [500 500; 400 400];
 dt.show_t_spectra(pix_pos);
+legend(pix_label)
 
 % LAB
 dt.scatter3('LAB');
@@ -62,7 +64,7 @@ dt.scatter3('LAB');
 dt.scatter3('XYZ');
 
 % sRGB
-dt.scatter3('RGB');
+% dt.scatter3('RGB');
 
 %% Save the outputs
 % CIE coordinates
