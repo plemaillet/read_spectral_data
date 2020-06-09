@@ -33,7 +33,7 @@ List:
   * Item 1.
   * Item 2.
 
-### (e) ExampleCode.m
+### ExampleCode.m
 The uterine tissue was selected for clear stratification of the squamous mucosa and stroma. The light pink region in S points to the stroma of the uterine sample. T and U point to different regions of the squamous epithelium; the former being the midzone, or stratum spongiosum, and the latter being the basal cell layer.
 
 <p align="center">
