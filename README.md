@@ -39,7 +39,7 @@ The CIEXYZ coordinates of the reference white and the color coordinates (CIEXYZ,
   <img width="746" height="512" src="Uterine_Cervix_red_Tagged.png">
 </p>
 
-For this selection of pixels positions, the spectral mean values of the transmittance are plotted. A line plot with error bars of the spectral transmittance is also presented (a coverage factor *k = 2", *i.e.* error bars = 2 standard deviations):
+For this selection of pixels positions, the spectral mean values of the transmittance are plotted. A line plot with error bars of the spectral transmittance is also presented (coverage factor *k = 2*, *i.e.* error bars = 2 standard deviations):
 
 <p float="middle">
 	<img width="448" height="336" src="plot_T.png" />
