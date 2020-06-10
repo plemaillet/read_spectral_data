@@ -457,7 +457,7 @@ classdef ReadSpectralDatabase < handle
         end
         
         %% Graphics
-        function plot_t_spectra(obj, pos, Color)
+        function p = plot_t_spectra(obj, pos, Color)
             %plot_t_spectra
             % Plot the transmittance for a table of positions:
             % - pixels positions [x y]
@@ -493,7 +493,7 @@ classdef ReadSpectralDatabase < handle
             ylabel('Transmittance (A.U.)');
         end
         
-        function errorbar_t_spectra(obj, pos, Color)
+        function p = errorbar_t_spectra(obj, pos, Color)
             %errorbar_t_spectra
             % Plot the transmittance for a table of positions:
             % - pixels positions [x y]
