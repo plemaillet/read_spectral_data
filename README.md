@@ -36,7 +36,7 @@ The input data are provided for each of the 8 selected tissues in the input/\<Ti
 The CIEXYZ coordinates of the reference white and the resulting color coordinates (CIEXYZ, CIEYxy and CIEL\*a\*b\*) for a selection of pixels location corresponding to superficial cells, basal cells and stroma are displayed. A tiff image is obtained by reshaping the sRGB coordinates:
 
 <p align="center">
-  <img width="1006" height="692" src="Uterine_Cervix_red_Tagged.png">
+  <img width="746" height="512" src="Uterine_Cervix_red_Tagged.png">
 </p>
 
 For this selection of pixels positions, the spectral mean values of the transmittance are plotted. An errorbar plot of the spectral mean values and standard deviation of the transmittance is also presented:
