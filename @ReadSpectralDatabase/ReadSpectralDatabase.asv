@@ -458,13 +458,16 @@ classdef ReadSpectralDatabase < handle
         
         %% Graphics
         function plot_t_spectra(obj, pos, Color)
-            %plot_t_spectra
+            %show_t_spectra
             % Plot the transmittance for a table of positions:
             % - pixels positions [x y]
             % - list positions x
             % The color of the plots is defined by the rgb coordinates of
             % the pixels if the rbg matrix is not empty, if empty or no
-            % color setting, the colors follow the colororder of the figure.
+            % color setting, the color follow the colororder of the figure.
+            % The plot type can be:
+            % - plot
+            % - errorbar (coverage factor 2)
             
             % Convert pixel position of row position if needed
             if size(pos, 2) == 2
@@ -478,6 +481,7 @@ classdef ReadSpectralDatabase < handle
             
             % Plot transmittance of pixels as a function of wavelength
             p = plot(obj.lambda, obj.sig_m(:, r_pos)');
+            p = errorbar(obj.lambda, obj.sig_m(:, r_pos)', 2*obj.sig_s(:, r_pos)');
             
             % Color
             switch Color
@@ -486,21 +490,24 @@ classdef ReadSpectralDatabase < handle
                         c = obj.rgb;
                         set(p, {'color'}, num2cell(c(r_pos, :), 2));
                     end
-                case 'colororder'
             end
+            
             xlim([380 780]); ylim([0 1.5]);
             xlabel('Wavelength ({\lambda})');
             ylabel('Transmittance (A.U.)');
         end
         
-        function errorbar_t_spectra(obj, pos, Color)
-            %errorbar_t_spectra
+                function errorbar_t_spectra(obj, pos, Color)
+            %show_t_spectra
             % Plot the transmittance for a table of positions:
             % - pixels positions [x y]
             % - list positions x
             % The color of the plots is defined by the rgb coordinates of
             % the pixels if the rbg matrix is not empty, if empty or no
-            % color setting, the colors follow the colororder of the figure.
+            % color setting, the color follow the colororder of the figure.
+            % The plot type can be:
+            % - plot
+            % - errorbar (coverage factor 2)
             
             % Convert pixel position of row position if needed
             if size(pos, 2) == 2
@@ -512,27 +519,46 @@ classdef ReadSpectralDatabase < handle
             % Graphics
             figure;
             
-            % Color
-            if ~isempty(obj.rgb)
-                c = obj.rgb;
-            end
+%             % Color 
+%             if ~isempty(obj.rgb)
+%                 c = obj.rgb;
+%             end
             
-            for i = 1:length(r_pos)
-                p = errorbar(obj.lambda, obj.sig_m(:, r_pos(i))', 2*obj.sig_s(:, r_pos(i))');
-                
-                % Color
-                switch Color
-                    case 'rgb'
-                        if ~isempty(obj.rgb)
-                            set(p, 'Color', c(r_pos(i), :));
-                        end
-                end
-                hold on;
+            % Plot transmittance of pixels as a function of wavelength
+            p = plot(obj.lambda, obj.sig_m(:, r_pos)');
+            
+            % Color
+            switch Color
+                case 'rgb'
+                    if ~isempty(obj.rgb)
+                        c = obj.rgb;
+                        set(p, {'color'}, num2cell(c(r_pos, :), 2));
+                    end
             end
+
+            
+%             for i = 1:length(r_pos)
+%                 % Plot type
+%                 switch PlotType
+%                     case 'plot'                    
+%                         p = plot(obj.lambda, obj.sig_m(:, r_pos(i))');
+%                     case 'errorbar'
+%                         p = errorbar(obj.lambda, obj.sig_m(:, r_pos(i))', 2*obj.sig_s(:, r_pos(i))');
+%                 end
+%                 
+%                 % Color 
+%                 switch Color
+%                     case 'rgb'
+%                         if ~isempty(obj.rgb)
+%                             set(p, 'Color', c(r_pos(i), :));
+%                         end
+%                 end
+%                 hold on;
+%             end
             xlim([380 780]); ylim([0 1.5]);
             xlabel('Wavelength ({\lambda})');
             ylabel('Transmittance (A.U.)');
-        end
+                end
         
         function scatter3(obj, coord)
             %scatter3

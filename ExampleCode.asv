@@ -40,7 +40,7 @@ dt.transmittance2LAB('y') % 'y' to trim the transmittance to 1
 dt.transmittance2sRGB ('y') % 'y' to trim the transmittance to 1
 
 %% Display results
-pix_pos = [80 375; 145 240; 244 76];
+pix_pos = [500 500; 400 400; 300 300];
 pix_label = ['S'; 'T'; 'U'];
 dt.displ_res(pix_pos);
 
@@ -100,11 +100,11 @@ axis off
 
 %% Plots
 % Plot of transittance data
-dt.plot_t_spectra(pix_pos, 'colororder'); % The color option can be 'rgb' or 'colororder'
+dt.plot_t_spectra(pix_pos, 'colororder'); % The option can be 'rgb' or 
 legend(pix_label);
 
 % Errorbar of transmittance data
-dt.errorbar_t_spectra(pix_pos, 'colororder'); % The color option can be 'rgb' or 'colororder'
+dt.errorbar_t_spectra(pix_pos, 'colororder');
 legend(pix_label);
 
 % LAB
