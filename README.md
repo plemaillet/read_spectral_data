@@ -43,8 +43,10 @@ The CIEXYZ coordinates of the reference white and the resulting color coordinate
 
 For this selection of pixels positions, the measured transmittance are displayed plotting the spectral mean values of the transmittance. An errorbar plot of the spectral mean values and standard deviation of the transmittance is also presented:
 
-![alt-text-1](plot_T.png "title-1") ![alt-text-2](errorbar_T.png "title-2")
-
+<p float="left">
+  <img src="plot_T.png" width="100" />
+  <img src="errorbar_T.png" width="100" /> 
+</p>
 
 
 ### ExampleCode.m
