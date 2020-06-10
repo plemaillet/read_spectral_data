@@ -11,7 +11,6 @@
 %   - CIELAB: CIELab 1976 coordinates                   (sizey*sizex) x 3 array
 %   - CovLAB: Covriance matrix on Lab coordinates       3 x 3 x (sizey*sizex) array
 %   - rgb: sRGB                                         (sizey*sizex) x 3 array
-%   - im                                                sizey x sizex x 3 array
 
 clearvars;
 close all;
@@ -92,7 +91,7 @@ Lung:
 
 %% Reshape sRGB to tiff and display truth image
 disp('Showing sRGB image');
-im = reshape(dt.rgb, dt.sizey, dt.sizex,3);
+im = reshape(dt.rgb, dt.sizey, dt.sizex,3); %im: sizey x sizex x 3 array
 figure;
 image(im);
 axis image;
