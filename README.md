@@ -27,15 +27,13 @@ This software and documentation (the "Software") were developed at the Food and 
 and outputs for each pixel in the image:
 - The CIE 1931 tri-stimulus coordinates, CIEXYZ
 - The covariance matrix on the CIEXYZ coordinates
-- The CIELab 1976 coordinates, CIELAB
-- The covariance matrix on the CIELAB coordinates
+- The CIEL\*a\*b\* 1976 coordinates
+- The covariance matrix on the CIEL\*a\*b\* coordinates
 - The sRGB coordinates
-
-Note: The covariance matrices computations are not used in the "ExampleCode.m" script.
 
 The input data are provided for each of the 8 selected tissues in the /input/\<Tissue Name\>/Transmittance subfolder. For the example presented: [input/UterineCervix_red/Transmittance](https://github.com/plemaillet/read_spectral_data/tree/master/input/UterineCervix_red/Transmittance)
 
-The CIEXYZ coordinates of the reference white and the resulting color coordinates (CIEXYZ, CIEYxy and CIELAB) for a selection of pixels location corresponding to superficial cells, basal cells and stroma are displayed. A tiff image is obtained by reshaping the sRGB coordinates:
+The CIEXYZ coordinates of the reference white and the resulting color coordinates (CIEXYZ, CIEYxy and CIEL\*a\*b\*) for a selection of pixels location corresponding to superficial cells, basal cells and stroma are displayed. A tiff image is obtained by reshaping the sRGB coordinates:
 
 <p align="center">
   <img width="557" height="512" src="Uterine_Cervix_red.png">
@@ -48,7 +46,7 @@ For this selection of pixels positions, the measured transmittance are displayed
 	<img width="448" height="336" src="errorbar_T.png" /> 
 </p>
 
-The color of these plots can follow the color order from Matlab or the sRGB color computed from the data. The CIEXYZ, CIELAB and sRGB data can be viusualized using a 3D scatter plot:
+The color of these plots can follow the color order from Matlab or the sRGB color computed from the data. The CIEXYZ, CIEL\*a\*b\* and sRGB data can be viusualized using a 3D scatter plot with the color of the datapoint following the sRGB coordinates:
 
  <p float="middle">
 	<img width="448" height="336" src="scatter3_XYZ.png" />
@@ -57,6 +55,8 @@ The color of these plots can follow the color order from Matlab or the sRGB colo
  <p align="center">
 	<img width="448" height="336" src="scatter3_RGB.png" /> 
 </p>
+
+The output CIE coordinates (CIEXYZ, CIEL\*a\*b\* and the respective covariance results) are saved in the [output/UterineCervix_red/CIE_Coord] subfolder(https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/CIE_Coord) and the sRGB color coordinates and tiff image are saved in [output/UterineCervix_red/RGB] subfolder(https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/RGB)
 
 ### ExampleCode.m
 The uterine tissue was selected for clear stratification of the squamous mucosa and stroma. The light pink region in S points to the stroma of the uterine sample. T and U point to different regions of the squamous epithelium; the former being the midzone, or stratum spongiosum, and the latter being the basal cell layer.
