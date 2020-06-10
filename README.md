@@ -39,7 +39,7 @@ The CIEXYZ coordinates of the reference white and the resulting color coordinate
   <img width="557" height="512" src="Uterine_Cervix_red.png">
 </p>
 
-For this selection of pixels positions, the measured transmittance are displayed plotting the spectral mean values of the transmittance. An errorbar plot of the spectral mean values and standard deviation of the transmittance is also presented:
+For this selection of pixels positions, the spectral mean values of the transmittance are plotted. An errorbar plot of the spectral mean values and standard deviation of the transmittance is also presented:
 
 <p float="middle">
 	<img width="448" height="336" src="plot_T.png" />
@@ -56,7 +56,7 @@ The color of these plots can follow the color order from Matlab or the sRGB colo
 	<img width="448" height="336" src="scatter3_RGB.png" /> 
 </p>
 
-The output CIE coordinates (CIEXYZ, CIEL\*a\*b\* and the respective covariance results) are saved in the [output/UterineCervix_red/CIE_Coord] subfolder (https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/CIE_Coord) and the sRGB color coordinates and tiff image are saved in [output/UterineCervix_red/RGB] subfolder (https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/RGB)
+The output CIE coordinates (CIEXYZ, CIEL\*a\*b\* and the respective covariance results) are saved in the [output/UterineCervix_red/CIE_Coord] subfolder (https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/CIE_Coord) and the sRGB color coordinates and tiff image are saved in [output/UterineCervix_red/RGB] subfolder (https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/RGB).
 
 ### ExampleCode.m
 The uterine tissue was selected for clear stratification of the squamous mucosa and stroma. The light pink region in S points to the stroma of the uterine sample. T and U point to different regions of the squamous epithelium; the former being the midzone, or stratum spongiosum, and the latter being the basal cell layer.
