@@ -40,8 +40,8 @@ dt.transmittance2LAB('y') % 'y' to trim the transmittance to 1
 dt.transmittance2sRGB ('y') % 'y' to trim the transmittance to 1
 
 %% Display results
-pix_pos = [80 375; 145 240; 244 76];
-pix_label = ['S'; 'T'; 'U'];
+pix_pos = [266 52; 337 266; 416 319];
+pix_label = ['Superficial cells'; 'Basal cells'; 'Stroma'];
 dt.displ_res(pix_pos);
 
 %% Points of interest from Jocelyn
