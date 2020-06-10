@@ -31,6 +31,8 @@ and outputs for each pixel in the image:
 - The covariance matrix on the CIELAB coordinates
 - The sRGB coordinates
 
+Note: The covariance matrices computations are not used in the "ExampleCode.m" script.
+
 The input data are provided for each of the 8 selected tissues in the /input/\<Tissue Name\>/Transmittance subfolder. For the example presented: [input/UterineCervix_red/Transmittance](https://github.com/plemaillet/read_spectral_data/tree/master/input/UterineCervix_red/Transmittance)
 
 The CIEXYZ coordinates of the reference white and the resulting color coordinates (CIEXYZ, CIEYxy and CIELAB) for a selection of pixels location corresponding to superficial cells, basal cells and stroma are displayed. A tiff image is obtained by reshaping the sRGB coordinates:
@@ -39,7 +41,9 @@ The CIEXYZ coordinates of the reference white and the resulting color coordinate
   <img width="557" height="512" src="Uterine_Cervix_red.png">
 </p>
 
-For this selection of pixels postions, the measured transmittance are displayed plotting the spectral mean values of the transmittance. An errorbar plot of the spectral mean values and standard deviation of the transmittance is also presented.
+For this selection of pixels positions, the measured transmittance are displayed plotting the spectral mean values of the transmittance. An errorbar plot of the spectral mean values and standard deviation of the transmittance is also presented:
+
+![alt-text-1](plot_T.png "title-1") ![alt-text-2](errorbar_T.png "title-2")
 
 
 
