@@ -57,10 +57,3 @@ The color of these plots can follow the color order from Matlab or the sRGB colo
 </p>
 
 The output CIE coordinates (CIEXYZ, CIEL\*a\*b\* and the respective covariance results) are saved in the [output/UterineCervix_red/CIE_Coord](https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/CIE_Coord) subfolder and the sRGB color coordinates and tiff image are saved in [output/UterineCervix_red/RGB](https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/RGB) subfolder.
-
-### ExampleCode.m
-The uterine tissue was selected for clear stratification of the squamous mucosa and stroma. The light pink region in S points to the stroma of the uterine sample. T and U point to different regions of the squamous epithelium; the former being the midzone, or stratum spongiosum, and the latter being the basal cell layer.
-
-<p align="center">
-  <img width="557" height="512" src="uterine_ROI_STU.png">
-</p>
