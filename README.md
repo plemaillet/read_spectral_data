@@ -44,10 +44,17 @@ The CIEXYZ coordinates of the reference white and the resulting color coordinate
 For this selection of pixels positions, the measured transmittance are displayed plotting the spectral mean values of the transmittance. An errorbar plot of the spectral mean values and standard deviation of the transmittance is also presented:
 
 <p float="middle">
-  <img width="448" height="336" src="plot_T.png" />
-  <img width="448" height="336" src="errorbar_T.png" /> 
+	<img width="448" height="336" src="plot_T.png" />
+	<img width="448" height="336" src="errorbar_T.png" /> 
 </p>
 
+The color of these plots can follow the color order from Matlab or the sRGB color computed from the data. The CIEXYZ, CIELAB and sRGB data can be viusualized using a 3D scatter plot:
+
+ <p float="middle">
+	<img width="392" height="294" src="scatter3_XYZ.png" />
+	<img width="392" height="294" src="scatter3_LAB.png" /> 
+	<img width="392" height="294" src="scatter3_RGB.png" /> 
+</p>
 
 ### ExampleCode.m
 The uterine tissue was selected for clear stratification of the squamous mucosa and stroma. The light pink region in S points to the stroma of the uterine sample. T and U point to different regions of the squamous epithelium; the former being the midzone, or stratum spongiosum, and the latter being the basal cell layer.
