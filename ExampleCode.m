@@ -44,6 +44,52 @@ pix_pos = [500 500; 400 400; 300 300];
 pix_label = ['S'; 'T'; 'U'];
 dt.displ_res(pix_pos);
 
+%% Points of interest from Jocelyn
+%{
+Bladder:
+[683 261] (superficial umbrella cells)
+[621 271] (intermediate urothelial cells)
+[325 372] (connective tissue)
+[451 326] (basal urothelial cells)
+
+Uterine Cervix:
+[266 52] (superficial cells)
+[559 184] (intermediate cells)
+[337 266] (basal cells)
+[416 319] (stroma)
+
+Brain:
+[484 498] (blood vessel, RBC's)
+[364 376] (neuron)
+[452 357] (neuropil)
+
+Breast:
+[360 433] (connective tissue)
+[142 211] (epithelial cells)
+
+Colon:
+[762 618] (RBC's)
+[763 477] (muscularis mucosa)
+[598 545] (epithelial cells, glandular)
+[338 177] (laminar propria)
+
+Kidney:
+[250 594] (RBC's)
+[203 344] (tubule, cytoplasm)
+[256, 491] (glomerulus, nucleus)
+[371 431] (glomerulus, cytoplasm)
+[196 337] (tubule, nucleus)
+
+Liver:
+[577 477] (hepatocyte, nucleus)
+[599 446] (hepatocyte, cytoplasm)
+
+Lung:
+[673 537] (blood vessel, RBC's)
+[467 401] (alveolar walls, cytoplasm)
+[590 406] (alveolar walls, nuclei)
+%}
+
 %% Reshape sRGB to tiff and display truth image
 disp('Showing sRGB image');
 im = reshape(dt.rgb, dt.sizey, dt.sizex,3);
