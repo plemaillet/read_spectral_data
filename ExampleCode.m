@@ -1,5 +1,5 @@
 %%%%%%%
-% Example code to load the data and output the CIE coordiantes and sRGB results
+% Example code to load the data and output the CIE coordinates and sRGB results
 %%%
 
 % input = 
