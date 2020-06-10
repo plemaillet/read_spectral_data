@@ -9,7 +9,7 @@
 %   - CIEXYZ: CIE 1931 tri-stimulus coordinates         (sizey*sizex) x 3 array
 %   - CovXYZ: Covariance matrix on XYZ coordinates      3 x 3 x (sizey*sizex) array
 %   - CIELAB: CIELab 1976 coordinates                   (sizey*sizex) x 3 array
-%   - CovLAB: Covraince matrix on Lab coordinates       3 x 3 x (sizey*sizex) array
+%   - CovLAB: Covriance matrix on Lab coordinates       3 x 3 x (sizey*sizex) array
 %   - rgb: sRGB                                         (sizey*sizex) x 3 array
 %   - im                                                sizey x sizex x 3 array
 
