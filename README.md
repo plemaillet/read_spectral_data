@@ -38,6 +38,10 @@ The CIEXYZ coordinates of the reference white and the resulting color coordinate
   <img width="557" height="512" src="Uterine_Cervix_red.png">
 </p>
 
+For this selection of pixels postions, the measured transmittance are displayed plotting the spectral mean values of the transmittance. An errorbar plot of the spectral mean values and standard deviation of the transmittance is also presented.
+
+
+
 ### ExampleCode.m
 The uterine tissue was selected for clear stratification of the squamous mucosa and stroma. The light pink region in S points to the stroma of the uterine sample. T and U point to different regions of the squamous epithelium; the former being the midzone, or stratum spongiosum, and the latter being the basal cell layer.
 
