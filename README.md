@@ -54,7 +54,7 @@ The color of these plots can follow the color order from Matlab or the sRGB colo
 	<img width="448" height="336" src="scatter3_XYZ.png" />
 	<img width="448" height="336" src="scatter3_LAB.png" /> 
 </p>
- <p float="middle">
+ <p float="center">
 	<img width="448" height="336" src="scatter3_RGB.png" /> 
 </p>
 
