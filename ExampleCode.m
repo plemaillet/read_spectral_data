@@ -114,7 +114,7 @@ dt.scatter3('LAB');
 dt.scatter3('XYZ');
 
 % sRGB
-% dt.scatter3('RGB');
+dt.scatter3('RGB');
 
 %% Save the outputs
 % CIE coordinates
