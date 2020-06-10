@@ -51,9 +51,11 @@ For this selection of pixels positions, the measured transmittance are displayed
 The color of these plots can follow the color order from Matlab or the sRGB color computed from the data. The CIEXYZ, CIELAB and sRGB data can be viusualized using a 3D scatter plot:
 
  <p float="middle">
-	<img width="280" height="210" src="scatter3_XYZ.png" />
-	<img width="280" height="210" src="scatter3_LAB.png" /> 
-	<img width="280" height="210" src="scatter3_RGB.png" /> 
+	<img width="448" height="336" src="scatter3_XYZ.png" />
+	<img width="448" height="336" src="scatter3_LAB.png" /> 
+</p>
+ <p float="middle">
+	<img width="448" height="336" src="scatter3_RGB.png" /> 
 </p>
 
 ### ExampleCode.m
