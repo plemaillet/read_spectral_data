@@ -33,7 +33,7 @@ The outputs for each pixel in the image are:
 
 The input data are provided for each of the 8 selected tissues in the input/\<Tissue Name\>/Transmittance subfolder. For the example presented here: [input/UterineCervix_red/Transmittance](https://github.com/plemaillet/read_spectral_data/tree/master/input/UterineCervix_red/Transmittance)
 
-The CIEXYZ coordinates of the reference white and the color coordinates (CIEXYZ, CIEYxy and CIEL\*a\*b\*) resulting from the transmittance measurements are displayed for a selection of pixels location corresponding to superficial cells, basal cells and stroma . A tiff image is obtained by reshaping the sRGB coordinates:
+The CIEXYZ coordinates of the reference white and the color coordinates (CIEXYZ, CIEYxy and CIEL\*a\*b\*) resulting from the transmittance measurements are displayed for a selection of pixels locations corresponding to superficial cells (X = 266; Y = 52), basal cells (X = 337; Y = 266) and stroma (X = 416; Y = 319). A tiff image is obtained by reshaping the sRGB coordinates:
 
 <p align="center">
   <img width="746" height="512" src="Uterine_Cervix_red_Tagged.png">
