@@ -2,6 +2,18 @@
 % Example code to load the data and output the CIE coordinates and sRGB results
 %%%
 
+% This code was developed to read the hyperspectral transmittance data 
+% measured by DIDSR's Hyperspectral Imaging Microscope (HIMS) for a selection 
+% of 8 BiomaxOrgan10 tissue microarray slides (US Biomax, 15883 Crabbs Branch Way, MD 20855, USA):
+% - Bladder
+% - Brain
+% - Breast
+% - Colon
+% - Kidney
+% - Liver
+% - Lung
+% - Uterine Cervix
+
 % input = 
 %   - transmittance:                                    41 x (sizey*sizex) array
 %   - standard deviation on transmittance:              41 x (sizey*sizex) array
