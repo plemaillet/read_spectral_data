@@ -42,18 +42,18 @@ The CIEXYZ coordinates of the reference white and the color coordinates (CIEXYZ,
 For this selection of pixels positions, the spectral mean values of the transmittance are plotted. A line plot with error bars of the spectral transmittance is also presented (coverage factor *k = 2*, *i.e.* error bars = 2 standard deviations):
 
 <p float="middle">
-	<img width="420" height="315" src="plot_T.png" />
-	<img width="420" height="315" src="errorbar_T.png" /> 
+	<img width="392" height="294" src="plot_T.png" />
+	<img width="392" height="294" src="errorbar_T.png" /> 
 </p>
 
 The color of these plots can follow the color order from Matlab or the sRGB color computed from the data. The CIEXYZ, CIEL\*a\*b\* and sRGB data can be visualized using a 3D scatter plot with the color of the data point following the sRGB coordinates:
 
  <p float="middle">
-	<img width="420" height="315" src="scatter3_XYZ.png" />
-	<img width="420" height="315" src="scatter3_LAB.png" /> 
+	<img width="392" height="294" src="scatter3_XYZ.png" />
+	<img width="392" height="294" src="scatter3_LAB.png" /> 
 </p>
  <p align="center">
-	<img width="420" height="315" src="scatter3_RGB.png" /> 
+	<img width="392" height="294" src="scatter3_RGB.png" /> 
 </p>
 
 The output CIE coordinates (CIEXYZ, CIEL\*a\*b\* and the respective covariance results) are saved in the [output/UterineCervix_red/CIE_Coord](https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/CIE_Coord) subfolder. The sRGB color coordinates and tiff image are saved in [output/UterineCervix_red/RGB](https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/RGB) subfolder.
