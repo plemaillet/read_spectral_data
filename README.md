@@ -56,4 +56,4 @@ The color of these plots can follow the color order from Matlab or the sRGB colo
 	<img width="392" height="294" src="scatter3_RGB.png" /> 
 </p>
 
-The output CIE coordinates (CIEXYZ, CIEL\*a\*b\* and the respective covariance results) are saved in the [output/UterineCervix_red/CIE_Coord](https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/CIE_Coord) subfolder. The sRGB color coordinates and tiff image are saved in [output/UterineCervix_red/RGB](https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/RGB) subfolder.
+The output CIE coordinates (CIEXYZ, CIEL\*a\*b\* and the respective covariance results) are saved in the [output/UterineCervix_red/CIE_Coord](https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/CIE_Coord) subfolder. The sRGB color coordinates and tiff image are saved in the [output/UterineCervix_red/RGB](https://github.com/plemaillet/read_spectral_data/tree/master/output/UterineCervix_red/RGB) subfolder.
