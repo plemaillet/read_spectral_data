@@ -2,16 +2,16 @@
 
 This code was developed to read the hyperspectral transmittance data measured by DIDSR's Hyperspectral Imaging Microscope (HIMS) for a selection of 8 BiomaxOrgan10 tissue microarray slides (US Biomax, 15883 Crabbs Branch Way, MD 20855, USA):
 
-| Tissue Name | Position |
-| --- | :---: |
-| Bladder | M13 |
-| Brain | H10 |
-| Breast | A1 |
-| Colon | H6 |
-| Kidney | H7 |
-| Liver | H9 |
-| Lung | J7 |
-| Uterine Cervix | B10 |
+| Tissue Name | Id | Serial | Position |
+| --- | :---: | :---: | :---: |
+| Bladder | BL2082 | 066 | M13 |
+| Brain | CNS801 | 084 | H10 |
+| Breast | BR963c | A011 | A1 |
+| Colon | BC05002a | A022 | H6 |
+| Kidney | BC07001 | C076 | H7 |
+| Liver | BC03002 | G136 | H9 |
+| Lung | BC04002 | K166 | J7 |
+| Uterine Cervix | CR602 | 110 | B10 |
 
 This data set will be available soon on the XXX website. The code outputs the CIE1931 XYZ and CIE1976 L\*a\*b\* coordinates and their covariance matrices. It also outputs the sRGB coordinates of the image.
 
