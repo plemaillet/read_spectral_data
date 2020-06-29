@@ -3,7 +3,7 @@
 This code was developed to read the hyperspectral transmittance data measured by DIDSR's Hyperspectral Imaging Microscope (HIMS) for a selection of 8 BiomaxOrgan10 tissue microarray slides (US Biomax, 15883 Crabbs Branch Way, MD 20855, USA):
 
 | Tissue Name | Id | Serial | Position |
-| --- | :---: | :---: | :---: |
+| :--- | :--- | :---: | :---: |
 | Bladder | BL2082 | 066 | M13 |
 | Brain | CNS801 | 084 | H10 |
 | Breast | BR963c | A011 | A1 |
